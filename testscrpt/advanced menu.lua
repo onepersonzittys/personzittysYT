@@ -15,7 +15,7 @@ local mainFrame = Instance.new("ImageLabel") --cria um frame de imagem 9slice
 mainFrame.Name = "MainFrame" -- nome do frame, uma 'variavel'
 mainFrame.Size = UDim2.new(0, 360, 0, 360) --define o tamanho do frame, aqui 360 para dividir em 9 partes de 120 para o redimensionamento 
 mainFrame.Position = UDim2.new(0.5, -180, 0.5,-180) --posicao que o frame se encontra, o 0.5 significa que esta centralizado no axis X e Y ao executar
-mainFrame.Image = "rbxassetid://86012201906913" -- pega a imagem que eu subi ao roblox de 360 pixeis
+mainFrame.Image = "rbxthumb://type=Asset&w=768&h=432&id=86012201906913" -- pega a imagem que eu subi ao roblox de 360 pixeis
 mainFrame.ScaleType = Enum.ScaleType.Slice --tranforma a escale type em slice, dividido
 mainFrame.SliceCenter = Rect.new(120, 120, 240, 240) -- deixa os cantos intactos, esticando apenas as bordas e o centro
 mainFrame.ResampleMode = Enum.ResamplerMode.Pixelated -- aumenta a qualidade da imagem pixelada
@@ -64,8 +64,10 @@ mainFrame.InputBegan:Connect(function(input) -- aqui eu nao consegui explicar
 
 		if mousePos.X > (framePos.X + frameSize.X - 40) and mousePos.Y > (framePos.Y + frameSize.Y - 40) then
 			resizing = true
+			dragging = false
 		else
 			dragging = true
+			resizing = false
 		end
 		dragStart = input.Position
 		startPos = mainFrame.Position
