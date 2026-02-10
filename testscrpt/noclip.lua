@@ -1,5 +1,10 @@
+print("---------------------------------------")
+print("code run sucess")
+print("---------------------------------------")
+
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+
 --variavel de controle
 local onep = Players.LocalPlayer
 local noclip = false
