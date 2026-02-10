@@ -56,7 +56,7 @@ local dragStart = Vector3.new()
 local startPos = UDim2.new()
 local startSize = UDim2.new() -- cria as variaveis comeco de arrastar, posicao inicial e tamanho antes de iniciativa
 
-mainFrame.Inputbegan:Connect(function(input) -- aqui eu nao consegui explicar
+mainFrame.InputBegan:Connect(function(input) -- aqui eu nao consegui explicar
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		local mousePos = input.Position
 		local framePos = mainFrame.AbsolutePosition
@@ -70,13 +70,6 @@ mainFrame.Inputbegan:Connect(function(input) -- aqui eu nao consegui explicar
 		dragStart = input.Position
 		startPos = mainFrame.Position
 		startSize = mainFrame.Size
-	end
-end)
-
-UserInputService.InputEnded:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		dragging = true
-		resizing = false
 	end
 end)
 
@@ -101,8 +94,8 @@ RunService.RenderStepped:Connect(function()
 		)
 	elseif resizing then
 		mainFrame.Size = UDim2.new(
-			0, math.max(120, startSize.X.offset + delta.X),
-			0, math.max(120, startSize.Y.offset + delta.Y)
+			0, math.max(120, startSize.X.Offset + delta.X),
+			0, math.max(120, startSize.Y.Offset + delta.Y)
 		)
 	end
 end)
