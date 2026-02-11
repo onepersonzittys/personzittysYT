@@ -51,7 +51,6 @@ flyBtn.MouseButton1Click:Connect(function() -- ao clique :
 end) --encerra a linha
 
 --parte do body velocity, o voo.
-local flying = false
 local speed = 80
 
 RunService.RenderStepped:Connect(function()
