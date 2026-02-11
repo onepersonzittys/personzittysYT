@@ -89,7 +89,7 @@ RunService.RenderStepped:Connect(function()
 				if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:destroy() end
 				if hrp:FindFirstChild("FlyGyro") then hrp.FlyVelocity:destroy() end
 				if humanoid then
-					humanoid:ChangeState(Enum.HumanoidStateType,GettingUp)
+					humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 				end
 			end
 		end
