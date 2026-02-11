@@ -55,13 +55,12 @@ local flying = false
 local speed = 80
 
 RunService.RenderStepped:Connect(function()
-		local char = player.Character
-		local humanoid = char and char:FindFirstChild("Humanoid")
-		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+	local char = player.Character
+	local humanoid = char and char:FindFirstChild("Humanoid")
+	local hrp = char and char:FindFirstChild("HumanoidRootPart")
 
-		if flying and hrp and humanoid then
-			humanoid:ChangeState(Enum.HumanoidStateType.Physics)
-		end
+	if flying and hrp and humanoid then
+		humanoid:ChangeState(Enum.HumanoidStateType.Physics)
 
 		local bv = hrp:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity")
 		bv.Name = "FlyVelocity"
@@ -84,7 +83,7 @@ RunService.RenderStepped:Connect(function()
 			local bg = hrp:FindFirstChild("FlyGyro")
 			if bv then bv:Destroy() end
 			if bg then bg:Destroy() end
-
+				
 			if humanoid and humanoid:GetState() == Enum.HumanoidStateType.Physics then
 				humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 			end
