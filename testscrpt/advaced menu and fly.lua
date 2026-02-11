@@ -90,6 +90,8 @@ end)
 RunService.RenderStepped:Connect(function()
 	if not (dragging or resizing) then return end
 
+	local mousePos = UserInputService:GetMouseLocation()
+
 	local delta = Vector2.new(mousePos.X - dragStart.X, mousePos.Y - dragStart.Y - 36)
 
 	if dragging then
