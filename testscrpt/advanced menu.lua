@@ -60,8 +60,9 @@ RunService.RenderStepped:Connect(function()
 
 	if flying and hrp and humanoid then
 		humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+		hrp.Velocity = Vector3.new(0, 0.1, 0)
 
-		local bv = hrp:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity")
+		local bv = hrp:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity", hrp)
 		bv.Name = "FlyVelocity"
 		bv.MaxForce = Vector3.new(1e6, 1e6 ,1e6)
 		bv.Parent = hrp
