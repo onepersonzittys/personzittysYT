@@ -55,45 +55,45 @@ local speed = 50
 local bv, bg
 
 RunService.RenderStepped:Connect(function()
-	local char = player.Character
-	if flying and char and char:FindFirstChild("HumanoidRootPart") then
-		local hrp = char.HumanoidRootPart
+		local char = player.Character
+		local humanoid = char and char:FindFirstChild("HumanoidRootPart")
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
 
-		if not hrp:FindFirstChild("FlyVelocity") then
-			bv = Instance.new("BodyVelocity")
-			bv.Name = "FlyVelocity"
-			bv.MaxForce = Vector3.new(1e6, 1e6, 1e6)
-			bv.Parent = hrp
+		if flying and hrp and humanoid then
+			humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+			
+			if not hrp:FindFirstChild("FlyVelocity") then
+				bv = Instance.new("BodyVelocity")
+				bv.Name = "FlyVelocity"
+				bv.MaxForce = Vector3.new(1e6, 1e6, 1e6)
+				bv.Parent = hrp
 
-			bg = Instance.new("BodyGyro")
-			bg.Name = "FlyGyro"
-			bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
-			bg.CFrame = hrp.CFrame
-			bg.Parent = hrp
+				bg = Instance.new("BodyGyro")
+				bg.Name = "FlyGyro"
+				bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
+				bg.Parent = hrp
+			end
+
+			local cam = workspace.CurrentCamera
+			local moveDir = Vector3.new(0, 0, 0)
+
+			if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
+			if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
+			if UserInputService:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
+			if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
+
+			bv.Velocity = moveDir * speed
+			bg.CFrame = cam.CFrame
+		else
+			if hrp then
+				if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:destroy() end
+				if hrp:FindFirstChild("FlyGyro") then hrp.FlyVelocity:destroy() end
+				if humanoid then
+					humanoid:ChangeState(Enum.HumanoidStateType,GettingUp)
+				end
+			end
 		end
-
-		local cam = workspace.CurrentCamera
-		local moveDir = Vector3.new(0, 0, 0)
-
-		if UserInputService:IsKeyDown(Enum.KeyCode.W) then
-			moveDir = moveDir + cam.CFrame.LookVector
-		end
-		if UserInputService:IsKeyDown(Enum.KeyCode.S) then
-			moveDir = moveDir - cam.CFrame.LookVector
-		end
-
-
-		bv.Velocity = moveDir * speed
-		bg.CFrame = cam.CFrame
-	else
-		if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-			local hrp = player.Character.HumanoidRootPart
-			if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:Destroy() end
-			if hrp:FindFirstChild("FlyGyro") then hrp.FlyGyro:Destroy() end
-		end
-	end
-end)
-
+	end)
 --drag and resize logic.
 local dragging, resizing --cria as variaveis 'arrastar' e 'redimensionar'
 local dragStart = Vector3.new()
