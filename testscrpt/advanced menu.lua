@@ -89,7 +89,7 @@ RunService.RenderStepped:Connect(function()
 		if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
 			local hrp = player.Character.HumanoidRootPart
 			if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:Destroy() end
-			if hrp:FindFirstChild("FlyGyro") then hrp.FLyGyro:Destroy() end
+			if hrp:FindFirstChild("FlyGyro") then hrp.FlyGyro:Destroy() end
 		end
 	end
 end)
