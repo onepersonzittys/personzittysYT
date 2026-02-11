@@ -56,7 +56,7 @@ local bv, bg
 
 RunService.RenderStepped:Connect(function()
 		local char = player.Character
-		local humanoid = char and char:FindFirstChild("HumanoidRootPart")
+		local humanoid = char and char:FindFirstChild("Humanoid")
 		local hrp = char and char:FindFirstChild("HumanoidRootPart")
 
 		if flying and hrp and humanoid then
