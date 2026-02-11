@@ -56,7 +56,7 @@ local dragStart = Vector3.new()
 local startPos = UDim2.new()
 local startSize = UDim2.new() -- cria as variaveis comeco de arrastar, posicao inicial e tamanho antes de iniciativa
 
-mainFrame.Inputbegan:Connect(function(input) -- aqui eu nao consegui explicar
+mainFrame.InputBegan:Connect(function(input) -- aqui eu nao consegui explicar
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		local mousePos = input.Position
 		local framePos = mainFrame.AbsolutePosition
