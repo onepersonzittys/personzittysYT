@@ -51,8 +51,7 @@ flyBtn.MouseButton1Click:Connect(function() -- ao clique :
 end) --encerra a linha
 
 --parte do body velocity, o voo.
-local speed = 50
-local bv, bg
+local speed = 80
 
 RunService.RenderStepped:Connect(function()
 		local char = player.Character
@@ -61,39 +60,41 @@ RunService.RenderStepped:Connect(function()
 
 		if flying and hrp and humanoid then
 			humanoid:ChangeState(Enum.HumanoidStateType.Physics)
-			
-			if not hrp:FindFirstChild("FlyVelocity") then
-				bv = Instance.new("BodyVelocity")
-				bv.Name = "FlyVelocity"
-				bv.MaxForce = Vector3.new(1e6, 1e6, 1e6)
-				bv.Parent = hrp
+		end
 
-				bg = Instance.new("BodyGyro")
-				bg.Name = "FlyGyro"
-				bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
-				bg.Parent = hrp
-			end
+		local bv = hrp:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity")
+		bv.Name = "FlyVelocity"
+		bv.MaxForce = Vector3.new(1e6, 1e6 ,1e6)
+		bv.Parent = hrp
 
-			local cam = workspace.CurrentCamera
-			local moveDir = Vector3.new(0, 0, 0)
+		local bg = hrp:FindFirstChild("FlyGyro") or Instance.new("BodyGyro")
+		bg.Name = "FlyGyro"
+		bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
+		bg.Parent = hrp
 
-			if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
-			if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
-			if UserInputService:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
-			if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
+		local cam = workspace.CurrentCamera
+		local moveDir = Vector3.new(0, 0, 0)
+		
+		if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
+		if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
+		if UserInputService:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
+		if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
 
-			bv.Velocity = moveDir * speed
-			bg.CFrame = cam.CFrame
-		else
-			if hrp then
-				if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:destroy() end
-				if hrp:FindFirstChild("FlyGyro") then hrp.FlyVelocity:destroy() end
-				if humanoid then
-					humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
-				end
+		bv.Velocity = moveDir * speed
+		bg.CFrame = cam.CFrame
+	else
+		if hrp then
+			local bv = hrp:FindFirstChild("FlyVelocity")
+			local bg = hrp:FindFirstChild("FlyGyro")
+			if bv then bv:Destroy() end
+			if bg then bg:Destroy() end
+
+			if humanoid and humanoid:GetState() == Enum.HumanoidStateType.Physics then
+				humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
 			end
 		end
-	end)
+	end
+end)
 --drag and resize logic.
 local dragging, resizing --cria as variaveis 'arrastar' e 'redimensionar'
 local dragStart = Vector3.new()
