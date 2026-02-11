@@ -73,13 +73,8 @@ RunService.RenderStepped:Connect(function()
 		bg.Parent = hrp
 
 		local cam = workspace.CurrentCamera
-		local moveDir = Vector3.new(0, 0, 0)
+		local moveDir = humanoid.MoveDirection
 		
-		if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir = moveDir + cam.CFrame.LookVector end
-		if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir = moveDir - cam.CFrame.LookVector end
-		if UserInputService:IsKeyDown(Enum.KeyCode.A) then moveDir = moveDir - cam.CFrame.RightVector end
-		if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir = moveDir + cam.CFrame.RightVector end
-
 		bv.Velocity = moveDir * speed
 		bg.CFrame = cam.CFrame
 	else
