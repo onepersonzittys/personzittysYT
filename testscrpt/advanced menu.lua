@@ -67,7 +67,7 @@ RunService.RenderStepped:Connect(function()
 
 			bg = Instance.new("BodyGyro")
 			bg.Name = "FlyGyro"
-			bg.MaxTorque = Vector3.new(1e6, 1e6. 1e6)
+			bg.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
 			bg.CFrame = hrp.CFrame
 			bg.Parent = hrp
 		end
