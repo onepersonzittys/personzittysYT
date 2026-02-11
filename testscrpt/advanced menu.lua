@@ -15,7 +15,7 @@ local mainFrame = Instance.new("ImageLabel") --cria um frame de imagem 9slice
 mainFrame.Name = "MainFrame" -- nome do frame, uma 'variavel'
 mainFrame.Size = UDim2.new(0, 360, 0, 360) --define o tamanho do frame, aqui 360 para dividir em 9 partes de 120 para o redimensionamento 
 mainFrame.Position = UDim2.new(0.5, -180, 0.5,-180) --posicao que o frame se encontra, o 0.5 significa que esta centralizado no axis X e Y ao executar
-mainFrame.Image = "rbxthumb://type=Asset&w=768&h=432&id=86012201906913" -- pega a imagem que eu subi ao roblox de 360 pixeis
+mainFrame.Image = "rbxthumb://type=Asset&w=768&h=432&id=87680203502147" -- pega a imagem que eu subi ao roblox de 360 pixeis
 mainFrame.ScaleType = Enum.ScaleType.Slice --tranforma a escale type em slice, dividido
 mainFrame.SliceCenter = Rect.new(120, 120, 240, 240) -- deixa os cantos intactos, esticando apenas as bordas e o centro
 mainFrame.ResampleMode = Enum.ResamplerMode.Pixelated -- aumenta a qualidade da imagem pixelada
@@ -49,6 +49,50 @@ flyBtn.MouseButton1Click:Connect(function() -- ao clique :
 	flyBtn.Text = flying and "fly ON" or "fly OFF" --verifica a variavel voo e retorna no texto do botao como ligado ou desligado
 	flyBtn.BackgroundColor3 = flying and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(220, 220, 220) --verifica a variavel voo e retorna na cor do botao
 end) --encerra a linha
+
+--parte do body velocity, o voo.
+local speed = 50
+local bv, bg
+
+RunService.RenderStepped:Connect(function()
+	local char = player.Character
+	if flying and char and char:FindFirstChild("HumanoidRootPart") then
+		local hrp = char.HumanoidRootPart
+
+		if not hrp:FindFirstChild("FlyVelocity") then
+			bv = Instance.new("BodyVelocity")
+			bv.Name = "FlyVelocity"
+			bv.MaxForce = Vector3.new(1e6, 1e6, 1e6)
+			bv.Parent = hrp
+
+			bg = Instance.new("BodyGyro")
+			bg.Name = "FlyGyro"
+			bg.MaxTorque = Vector3.new(1e6, 1e6. 1e6)
+			bg.CFrame = hrp.CFrame
+			bg.Parent = hrp
+		end
+
+		local cam = workspace.CurrentCamera
+		local moveDir = Vector3.new(0, 0, 0)
+
+		if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+			moveDir = moveDir + cam.CFrame.LookVector
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+			moveDir = moveDir - cam.CFrame.LookVector
+		end
+
+
+		bv.Velocity = moveDir * speed
+		bg.CFrame = cam.CFrame
+	else
+		if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+			local hrp = player.Character.HumanoidRootPart
+			if hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:Destroy() end
+			if hrp:FindFirstChild("FlyGyro") then hrp.FLyGyro:Destroy() end
+		end
+	end
+end)
 
 --drag and resize logic.
 local dragging, resizing --cria as variaveis 'arrastar' e 'redimensionar'
