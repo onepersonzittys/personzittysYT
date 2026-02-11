@@ -51,6 +51,7 @@ flyBtn.MouseButton1Click:Connect(function() -- ao clique :
 end) --encerra a linha
 
 --parte do body velocity, o voo.
+local flying = false
 local speed = 80
 
 RunService.RenderStepped:Connect(function()
@@ -127,7 +128,7 @@ RunService.RenderStepped:Connect(function()
 
 	local mousePos = UserInputService:GetMouseLocation()
 
-	local delta = Vector2.new(mousePos.X - dragStart.X, mousePos.Y - dragStart.Y - 36)
+	local delta = Vector2.new(mousePos.X - dragStart.X, mousePos.Y - dragStart.Y)
 
 	if dragging then
 		mainFrame.Position = UDim2.new(
