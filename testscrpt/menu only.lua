@@ -9,7 +9,7 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
-local MenuFrame = Instance.new("Frame")
+local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
 MenuFrame.Size = UDim2.new(0, 768, 0, 768)
 MenuFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
@@ -29,7 +29,7 @@ end
 
 local MenuFrameX, MenuFrameY = FrameCurrentPos(script.Parent.MenuFrame)
 
-local MenuTop = Instance.new("Frame")
+local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Size = UDim2.new(0, 768, 0, 32)
 MenuTop.Position = UDim2.new(0, MenuFrameX, 0, MenuFrameY + 736)
