@@ -18,20 +18,13 @@ MenuFrame.ScaleType = Enum.ScaleType.Slice
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
 MenuFrame.Active = true
 MenuFrame.Parent = ScreenGui
-local function getMenuFramePos(FrameCurrentPos)
-	local MenuFrameSize = MenuFrame.Size
-	local width = MenuFrameSize.X.Offset
-	local height = MenuFrameSize.Y.Offset
-
-	return width, height
-end
 
 local MenuFrameX, MenuFrameY = FrameCurrentPos(script.Parent.MenuFrame)
 
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Size = UDim2.new(0, 768, 0, 32)
-MenuTop.Position = UDim2.new(0, MenuFrameX, 0, MenuFrameY + 736)
+MenuTop.Position = UDim2.new(0, 0, 0, 736)
 MenuTop.Image = "rbxassetid://119324806847241"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(32, 0, 64, 32)
