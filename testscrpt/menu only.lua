@@ -6,7 +6,7 @@ local player = game.Players.LocalPlayer
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "ScreenGui"
 ScreenGui.ResetOnSpawn = false
-ScreenGui.ScreenInsects = Enum.ScreenInsects.CoreUiSafeInsects
+ScreenGui.ScreenInsets = Enum.ScreenInsets.CoreUiSafeInsects
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
 local MenuFrame = Instance.new("MenuFrame")
