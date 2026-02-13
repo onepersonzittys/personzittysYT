@@ -16,7 +16,6 @@ MenuFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
 MenuFrame.Image = "rbxassetid://131583245485808"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
-MenuFrame.ResamplerMode = Enum.ResamplerMode.Pixelated
 MenuFrame.Active = true
 MenuFrame.Parent = ScreenGui
 local function getMenuFramePos(FrameCurrentPos)
@@ -36,6 +35,5 @@ MenuTop.Position = UDim2.new(0, MenuFrameX, 0, MenuFrameY + 736)
 MenuTop.Image = "rbxassetid://119324806847241"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(32, 0, 64, 32)
-MenuTop.ResamplerMode = Enum.ResamplerMode.Pixelated
 MenuTop.Active = true
 MenuTop.Parent = MenuFrame
