@@ -19,8 +19,6 @@ MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
 MenuFrame.Active = true
 MenuFrame.Parent = ScreenGui
 
-local MenuFrameX, MenuFrameY = FrameCurrentPos(script.Parent.MenuFrame)
-
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Size = UDim2.new(0, 768, 0, 32)
