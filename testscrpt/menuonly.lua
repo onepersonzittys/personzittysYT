@@ -6,13 +6,12 @@ local player = game.Players.LocalPlayer
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "ScreenGui"
 ScreenGui.ResetOnSpawn = false
-ScreenGui.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
 local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
 MenuFrame.Size = UDim2.new(0, 384, 0, 384)
-MenuFrame.Position = UDim2.new(0.1, 0, 0.8, 0)
+MenuFrame.Position = UDim2.new(0, 0, -0.15, 0)
 MenuFrame.Image = "rbxassetid://115569712843757"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
