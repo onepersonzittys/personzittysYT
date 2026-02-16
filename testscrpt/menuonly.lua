@@ -13,12 +13,11 @@ local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
 MenuFrame.Size = UDim2.new(0, 768, 0, 768)
 MenuFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
-MenuFrame.Image = "rbxassetid://13158324522"
+MenuFrame.Image = "rbxassetid://115569712843757"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
-MenuFrame.Active = true
-MenuFrame.ImageTransparency = 0
 MenuFrame.ZIndex = 5
+MenuFrame.Active = true
 MenuFrame.Parent = ScreenGui
 
 local MenuTop = Instance.new("ImageLabel")
