@@ -23,9 +23,12 @@ local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Size = UDim2.new(0, 384, 0, 16)
 MenuTop.Position = UDim2.new(0, 0, 0, 0)
+MenuTop.BorderSizePixel = 0
 MenuTop.Image = "rbxassetid://74821364529931"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(32, 0, 352, 32)
 MenuTop.ZIndex = 6
 MenuTop.Active = true
 MenuTop.Parent = MenuFrame
+
+local dragging = false
