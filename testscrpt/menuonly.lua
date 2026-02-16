@@ -26,6 +26,7 @@ MenuTop.Position = UDim2.new(0, 0, 0, 0)
 MenuTop.Image = "rbxthumb://type=Asset&id=119324806847241&w=768&h=32"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(32, 0, 352, 32)
+MenuTop.ResampleMode = Enum.ResamplerMode.Pixelated
 MenuTop.ZIndex = 6
 MenuTop.Active = true
 MenuTop.Parent = MenuFrame
