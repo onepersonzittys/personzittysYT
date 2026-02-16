@@ -32,3 +32,38 @@ MenuTop.Active = true
 MenuTop.Parent = MenuFrame
 
 local dragging = false
+local dragStart = Vector3.new()
+local startPos = UDim2.new()
+local startSize = UDim2.new()
+
+MenuTop.InputBegan:connect(function(input)
+		if UserInputService == Enum.UserInputType.Touch then
+		local MousePos = Input.Position
+		local FramePos = MenuFrame.AbsolutePosition
+		dragging = true
+	end
+		dragStart = Input.Position
+		startPos = MenuFrame.Position
+	end
+end)
+
+UserInputService.InputEnded:connect(function(input)
+	if input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+	end
+end)
+
+RunService.RenderStepped.connect(function()
+	if not dragging then return end
+
+	local MousePos = UserInputService:GetMouseLocation()
+
+	local delta = Vector2.new(MousePos.X - dragStart.X, MousePos.Y - dragStart.Y)
+
+	if dragging then
+		MenuFrame.Position = UDim2.new(
+			startPos.X, startPo.X.Offset + delta.X
+			startPos.Y, startPo.Y.Offset + delta.Y
+		)
+	end
+end)
