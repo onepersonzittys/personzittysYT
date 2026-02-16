@@ -11,7 +11,7 @@ ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
 local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
-MenuFrame.Size = UDim2.new(0, 768, 0, 768)
+MenuFrame.Size = UDim2.new(0, 384, 0, 384)
 MenuFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
 MenuFrame.Image = "rbxassetid://115569712843757"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
@@ -22,12 +22,11 @@ MenuFrame.Parent = ScreenGui
 
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
-MenuTop.Size = UDim2.new(0, 768, 0, 32)
-MenuTop.Position = UDim2.new(0, 0, 0, 736)
+MenuTop.Size = UDim2.new(0, 384, 0, 32)
+MenuTop.Position = UDim2.new(0, 0, 0, 352)
 MenuTop.Image = "rbxassetid://119324806847241"
 MenuTop.ScaleType = Enum.ScaleType.Slice
-MenuTop.SliceCenter = Rect.new(32, 0, 64, 32)
-MenuTop.Active = true
-MenuFrame.ImageTransparency = 0
+MenuTop.SliceCenter = Rect.new(32, 32, 352, 32)
 MenuFrame.ZIndex = 6
+MenuTop.Active = true
 MenuTop.Parent = MenuFrame
