@@ -21,7 +21,7 @@ MenuFrame.Parent = ScreenGui
 
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
-MenuTop.Size = UDim2.new(0, 384, 0, 32)
+MenuTop.Size = UDim2.new(0, 384, 0, 16)
 MenuTop.Position = UDim2.new(0, 0, 0, 0)
 MenuTop.Image = "rbxassetid://74821364529931"
 MenuTop.ScaleType = Enum.ScaleType.Slice
