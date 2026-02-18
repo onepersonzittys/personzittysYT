@@ -32,38 +32,34 @@ MenuTop.Active = true
 MenuTop.Parent = MenuFrame
 
 local dragging = false
-local dragStart = Vector3.new()
+local dragStart = Vector2.new()
 local startPos = UDim2.new()
 local startSize = UDim2.new()
+local dragInput
 
-MenuTop.InputBegan:connect(function(input)
-		if UserInputService == Enum.UserInputType.Touch then
-		local MousePos = Input.Position
-		local FramePos = MenuFrame.AbsolutePosition
+MenuTop.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragStart = input.Position
+		dragInput = input
+		startPos = MenuFrame.Position
 		dragging = true
 	end
-		dragStart = Input.Position
-		startPos = MenuFrame.Position
-	end
 end)
 
-UserInputService.InputEnded:connect(function(input)
-	if input.UserInputType == Enum.UserInputType.Touch then
-		dragging = false
-	end
-end)
-
-RunService.RenderStepped.connect(function()
+UserInputService.InputChanged:Connect(function(input)
 	if not dragging then return end
+	if input ~= dragInput then return end
+	local MousePos = input.Position
+	local deltaX = (MousePos.X - dragStart.X)
+	local deltaY = (MousePos.Y - dragStart.Y)
+	local targetPos = UDim2.new(startPos.X.Scale, deltaX + startPos.X.Offset,
+		startPos.Y.Scale, deltaY + startPos.Y.Offset)
+	MenuFrame.Position = MenuFrame.Position:Lerp(targetPos, 0.1)
+end)
 
-	local MousePos = UserInputService:GetMouseLocation()
-
-	local delta = Vector2.new(MousePos.X - dragStart.X, MousePos.Y - dragStart.Y)
-
-	if dragging then
-		MenuFrame.Position = UDim2.new(
-			startPos.X, startPo.X.Offset + delta.X
-			startPos.Y, startPo.Y.Offset + delta.Y
-		)
+MenuTop.InputEnded:Connect(function(input)
+	if input == dragInput then
+        dragging = false
+        dragInput = nil
 	end
 end)
