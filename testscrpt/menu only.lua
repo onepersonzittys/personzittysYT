@@ -23,7 +23,6 @@ local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Position = UDim2.new(0, 0, 0, 0)
 MenuTop.Size = UDim2.new(0, 384, 0, 16)
-MenuTop.UICorner = UDim2.new(0, 8)
 MenuTop.Image = "rbxassetid://117813558054556"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(16, 0, 352, 16)
