@@ -34,6 +34,7 @@ MenuTop.Parent = MenuFrame
 local resizeHandle = Instance.new("ImageLabel")
 resizeHandle.Name = "resizeHandle"
 resizeHandle.Position = UDim2.new(1, -25, 1, -25)
+MenuTop.BorderSizePixel = 0
 resizeHandle.Size = UDim2.new(0, 16, 0, 16)
 resizeHandle.Image = "rbxassetid://81088906659577"
 resizeHandle.ZIndex = 6
