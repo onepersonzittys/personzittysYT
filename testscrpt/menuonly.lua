@@ -23,6 +23,7 @@ local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Position = UDim2.new(0, 0, 0, 0)
 MenuTop.Size = UDim2.new(0, 384, 0, 16)
+MenuTop.UICorner = UDim2.new(0, 8)
 MenuTop.Image = "rbxassetid://117813558054556"
 MenuTop.ScaleType = Enum.ScaleType.Slice
 MenuTop.SliceCenter = Rect.new(16, 0, 352, 16)
@@ -104,6 +105,8 @@ UserInputService.InputChanged:Connect(function(input)
 	end
 	MenuFrame.Size = UDim2.new(startSize.X.Scale, targetWidth, 
 		startSize.Y.Scale, targetHeight)
+	MenuTop.Size = UDim2.new(startSize.X.Scale, targetWidth,
+		startSize.Y.scale, 16)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
