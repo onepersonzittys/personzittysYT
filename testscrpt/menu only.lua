@@ -1,6 +1,7 @@
 print ("an eye for an eye and the world goes blind")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local WorkspaceService = game:GetService("Workspace")
 local player = game.Players.LocalPlayer
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -12,6 +13,7 @@ local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
 MenuFrame.Size = UDim2.new(0, 384, 0, 384)
 MenuFrame.Position = UDim2.new(0, 0, 0, -10)
+MenuFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MenuFrame.Image = "rbxassetid://115569712843757"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
@@ -72,6 +74,30 @@ UserInputService.InputEnded:Connect(function(input)
 	if input == dragInput then
         dragging = false
         dragInput = nil
+
+        local windowPos = MenuFrame.AbsolutePosition
+		local windowX = windowPos.X
+		local windowY = windowPos.Y
+		local windowSize = MenuFrame.AbsoluteSize
+		local snapDistance = 16
+		local screenSize = camera.ViewportSize
+		local screenX = screenSize.X
+		local screenY = screenSize.Y
+		local newX = windowX
+		local newY = windowY
+        if windowX <= snapDistance then
+			newX = 0
+		end
+		if windowX + windowSize.X >= screenX - snapDistance then
+			newX = screenX - windowSize.X
+		end
+		if windowY <= snapDistance then
+			newY = 0
+		end
+		if windowY + windowSize.Y >= screenY - snapDistance then
+			newY = screenY - windowSize.Y
+		end
+		MenuFrame.Position = UDim2.new(0, newX, 0, newY)
 	end
 end)
 
