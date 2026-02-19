@@ -22,7 +22,7 @@ MenuFrame.Parent = ScreenGui
 
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
-MenuTop.Position = UDim2.new(0, 0, 0, 0)
+MenuTop.Position = UDim2.new(0.5, 0, 0, 5)
 MenuTop.Size = UDim2.new(0, 384, 0, 16)
 MenuTop.Image = "rbxassetid://117813558054556"
 MenuTop.AnchorPoint = Vector2.new(0.5, 0.5)
