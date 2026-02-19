@@ -22,19 +22,28 @@ MenuFrame.Parent = ScreenGui
 local MenuTop = Instance.new("ImageLabel")
 MenuTop.Name = "MenuTop"
 MenuTop.Position = UDim2.new(0, 0, 0, 0)
-MenuTop.BorderSizePixel = 0
-MenuTop.Image = "rbxassetid://74821364529931"
-MenuTop.ScaleType = Enum.ScaleType.Slice
-MenuTop.SliceCenter = Rect.new(32, 0, 352, 32)
 MenuTop.Size = UDim2.new(0, 384, 0, 16)
+MenuTop.UICorner = UDim2.new(0, 8)
+MenuTop.Image = "rbxassetid://117813558054556"
+MenuTop.ScaleType = Enum.ScaleType.Slice
+MenuTop.SliceCenter = Rect.new(16, 0, 352, 16)
 MenuTop.ZIndex = 6
 MenuTop.Active = true
 MenuTop.Parent = MenuFrame
 
+local resizeHandle = Instance.new("ImageLabel")
+resizeHandle.Name = "resizeHandle"
+resizeHandle.Position = UDim2.new(1, -25, 1, -25)
+resizeHandle.Size = UDim2.new(0, 16, 0, 16)
+resizeHandle.Image = "rbxassetid://81088906659577"
+resizeHandle.ZIndex = 6
+resizeHandle.Active = true
+resizeHandle.Parent = MenuFrame
+--smooth drag code
+
 local dragging = false
 local dragStart = Vector2.new()
 local startPos = UDim2.new()
-local startSize = UDim2.new()
 local dragInput
 
 MenuTop.InputBegan:Connect(function(input)
@@ -50,10 +59,10 @@ UserInputService.InputChanged:Connect(function(input)
 	if not dragging then return end
 	if input ~= dragInput then return end
 	local MousePos = input.Position
-	local deltaX = (MousePos.X - dragStart.X)
-	local deltaY = (MousePos.Y - dragStart.Y)
-	local targetPos = UDim2.new(startPos.X.Scale, deltaX + startPos.X.Offset,
-		startPos.Y.Scale, deltaY + startPos.Y.Offset)
+	local deltadragX = (MousePos.X - dragStart.X)
+	local deltadragY = (MousePos.Y - dragStart.Y)
+	local targetPos = UDim2.new(startPos.X.Scale, deltadragX + startPos.X.Offset,
+		startPos.Y.Scale, deltadragY + startPos.Y.Offset)
 	MenuFrame.Position = MenuFrame.Position:Lerp(targetPos, 0.1)
 end)
 
@@ -61,5 +70,46 @@ UserInputService.InputEnded:Connect(function(input)
 	if input == dragInput then
         dragging = false
         dragInput = nil
+	end
+end)
+
+local resizing = false
+local resizeStart = Vector2.new()
+local startSize = UDim2.new()
+local sizeInput
+
+-- resizable menu :
+
+resizeHandle.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		resizeStart = input.Position
+		startSize = MenuFrame.Size
+		sizeInput = input
+		resizing = true
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if not resizing then return end
+	if input ~= sizeInput then return end
+	local mousePos = input.Position
+	local deltaSizeX = (mousePos.X - resizeStart.X)
+	local deltaSizeY = (mousePos.Y - resizeStart.Y)
+	local targetWidth = startSize.X.Offset + deltaSizeX
+	local targetHeight = startSize.Y.Offset + deltaSizeY
+	local minWidth = 200
+	local minHeight = 172
+	if targetWidth < minWidth then targetWidth = minWidth
+	end
+	if targetHeight < minHeight then targetHeight = minHeight
+	end
+	MenuFrame.Size = UDim2.new(startSize.X.Scale, targetWidth, 
+		startSize.Y.Scale, targetHeight)
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input == sizeInput then
+		resizing = false
+		sizeInput = nil
 	end
 end)
