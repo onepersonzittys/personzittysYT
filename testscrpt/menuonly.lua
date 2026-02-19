@@ -108,7 +108,7 @@ UserInputService.InputChanged:Connect(function(input)
 	MenuFrame.Size = UDim2.new(startSize.X.Scale, targetWidth, 
 		startSize.Y.Scale, targetHeight)
 	MenuTop.Size = UDim2.new(startSize.X.Scale, targetWidth,
-		startSize.Y.scale, 16)
+		startSize.Y.Scale, 16)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
