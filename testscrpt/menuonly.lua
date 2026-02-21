@@ -222,7 +222,7 @@ UserInputService.InputChanged:Connect(function(input)
 	MenuFrame.Size = UDim2.new(startSize.X.Scale, targetWidth, 
 		startSize.Y.Scale, targetHeight)
 	MenuTop.Size = UDim2.new(0, targetWidth, 0, 16)
-	MenuBar.Size = UDim2.new(0, frameSizeX / 6 , 0.9, 0)
+	MenuBar.Size = UDim2.new(0, targetWidth / 6, 0.9, 0)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
