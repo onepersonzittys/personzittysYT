@@ -13,6 +13,7 @@ local MenuFrame = Instance.new("ImageLabel")
 MenuFrame.Name = "MenuFrame"
 MenuFrame.Size = UDim2.new(0, 384, 0, 384)
 MenuFrame.Position = UDim2.new(0.5, 0, 0.5, -10)
+MenuFrame.ClipsDescendants = true
 MenuFrame.Image = "rbxassetid://115569712843757"
 MenuFrame.ScaleType = Enum.ScaleType.Slice 
 MenuFrame.SliceCenter = Rect.new(256, 256, 512, 512)
@@ -128,6 +129,33 @@ CreditsButton.MouseLeave:Connect(function()
 	CreditsButton.BackgroundColor3 = Color3.fromRGB(232,233,234)
 end)
 
+local UIPad = Instance.new("UIPadding")
+UIPad.Name = "UIPad"
+UIPad.PaddingBottom = UDim.new(0, 7)
+UIPad.PaddingLeft = UDim.new(0, 7)
+UIPad.PaddingRight = UDim.new(0, 7)
+UIPad.PaddingTop = UDim.new(0, 17)
+UIPad.Parent = MenuFrame
+
+local MainScene = 1
+local CreditsScene = 1000
+local currentScene = MainScene
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(1, 0, 1, 0)
+MainFrame.Active = true
+MainFrame.BackgroundTransparency = 1
+MainFrame.Parent = MenuFrame
+
+local CreditsFrame = Instance.new("Frame")
+CreditsFrame.Name = "CreditsFrame"
+CreditsFrame.Size = UDim2.new(1, 0, 1, 0)
+CreditsFrame.Active = true
+CreditsFrame.Visible = false
+CreditsFrame.BackgroundTransparency = 1
+CreditsFrame.Parent = MenuFrame
+
 --smooth drag code
 
 local dragging = false
@@ -223,6 +251,10 @@ UserInputService.InputChanged:Connect(function(input)
 		startSize.Y.Scale, targetHeight)
 	MenuTop.Size = UDim2.new(0, targetWidth, 0, 16)
 	MenuBar.Size = UDim2.new(0, targetWidth / 6, 0.9, 0)
+	UIPad.PaddingBottom = UDim.new(0, 7)
+	UIPad.PaddingLeft = UDim.new(0, 7)
+	UIPad.PaddingRight = UDim.new(0, 7)
+	UIPad.PaddingTop = UDim.new(0, 17)
 end)
 
 UserInputService.InputEnded:Connect(function(input)
@@ -230,4 +262,169 @@ UserInputService.InputEnded:Connect(function(input)
 		resizing = false
 		sizeInput = nil
 	end
+end)
+
+
+local MainGroup = Instance.new("CanvasGroup")
+MainGroup.Parent = MainFrame
+
+local LeftPad = Instance.new("Frame")
+LeftPad.Name = "LeftPad"
+LeftPad.Size = UDim2.new(0.3, 0, 1, 0)
+LeftPad.BackgroundTransparency = 1
+LeftPad.ClipsDescendants = true
+LeftPad.Active = true
+LeftPad.Parent = MainGroup
+
+local RightPad = Instance.new("Frame")
+RightPad.Name = "RightPad"
+RightPad.Position = UDim2.new(0.3, 0, 0, 0)
+RightPad.Size = UDim2.new(0.7, 0, 1, 0)
+RightPad.BackgroundTransparency = 1
+RightPad.ClipsDescendants = true
+RightPad.Active = true
+RightPad.Parent = MainGroup
+
+local List1 = Instance.new("UIListLayout")
+List1.Name = "List1"
+List1.FillDirection = Enum.FillDirection.Vertical
+List1.VerticalAlignment = Enum.VerticalAlignment.Top
+List1.SortOrder = Enum.SortOrder.Name
+List1.HorizontalFlex = Enum.UIFlexAlignment.Fill
+List1.ItemLineAlignment = Enum.ItemLineAlignment.Start
+List1.Padding = UDim.new(0, 4)
+List1.Parent = LeftPad
+
+local Button1 = Instance.new("TextButton")
+Button1.Name = "A1"
+Button1.Size = UDim2.new(1, 0, 0, 15)
+Button1.Text = "A1"
+Button1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Button1.ZIndex = 6
+Button1.Parent = LeftPad
+
+local Button2 = Instance.new("TextButton")
+Button2.Name = "A2"
+Button2.Size = UDim2.new(1, 0, 0, 17)
+Button2.Text = "A2"
+Button2.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+Button2.ZIndex = 6
+Button2.Parent = LeftPad
+
+local Button3 = Instance.new("TextButton")
+Button3.Name = "X"
+Button3.Size = UDim2.new(1, 0, 0, 20)
+Button3.Text = "X"
+Button3.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+Button3.ZIndex = 6
+Button3.Parent = LeftPad
+
+local TextField1 = Instance.new("TextBox")
+TextField1.Name = "Y"
+TextField1.Size = UDim2.new(1, 0, 0, 50)
+TextField1.MultiLine = true
+TextField1.TextScaled = true
+TextField1.TextTruncate = Enum.TextTruncate.AtEnd
+TextField1.ZIndex = 6
+TextField1.Parent = LeftPad
+
+local Frame1 = Instance.new("Frame")
+Frame1.Position = UDim2.new(0, 2, 0, 2)
+Frame1.Size = UDim2.new(1, -2, 1, -2)
+Frame1.BackgroundColor3 = Color3.fromRGB(255, 0, 255)
+Frame1.ZIndex = 6
+Frame1.Parent = RightPad
+
+local timescale = 2
+
+MainButton.Activated:Connect(function(startTick, elapsed, t)
+	if currentScene == MainScene then return end
+	currentScene = MainScene
+	MainButton.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
+	CreditsFrame.Visible = false
+
+	local startTick = tick()
+	MainGroup.GroupTransparency = 1
+	MainFrame.Visible = true 
+
+	while true do
+		local elapsed = tick() - startTick
+		local t = math.clamp(elapsed / timescale, 0, 1)
+		MainGroup.GroupTransparency = 1 - t
+
+		if t >= 1 then break end
+		task.wait()
+	end
+
+	MainGroup.GroupTransparency = 0
+end)
+
+local CreditsGroup = Instance.new("CanvasGroup")
+CreditsGroup.Parent = CreditsFrame
+
+local LeftPad1 = Instance.new("Frame")
+LeftPad1.Name = "LeftPad1"
+LeftPad1.Size = UDim2.new(0.3, 0, 1, 0)
+LeftPad1.BackgroundTransparency = 1
+LeftPad1.ClipsDescendants = true
+LeftPad1.Active = true
+LeftPad1.Parent = CreditsGroup
+
+local RightPad1 = Instance.new("Frame")
+RightPad1.Name = "RightPad1"
+RightPad1.Position = UDim2.new(0.3, 0, 0, 0)
+RightPad1.Size = UDim2.new(0.7, 0, 1, 0)
+RightPad1.BackgroundTransparency = 1
+RightPad1.ClipsDescendants = true
+RightPad1.Active = true
+RightPad1.Parent = CreditsGroup
+
+local Text1 = Instance.new("TextLabel")
+Text1.TextWrapped = true
+Text1.Size = UDim2.new(1, 0, 1, 0)
+Text1.Text = "Wash away the anger
+
+Here I stand beneath
+The warm and soothing rain
+The droplets falling
+Gently down on the terrain
+Wash away the sorrow
+All the stains of time
+But there’s no memory
+It’s only dry inside
+
+In the mud and sinking deeper
+Into a peaceful life"
+Text1.ZIndex = 6
+Text1.Parent = LeftPad1
+
+local Image1 = Instance.new("ImageLabel")
+Image1.Position = UDim2.new(0.2, 0, 0.2, 0)
+Image1.Size = UDim2.new(0, 192, 0, 192)
+Image1.BackgroundTransparency = 1
+Image1.Image = "rbxassetid://100901882549557"
+Image1.ResampleMode = Enum.ResamplerMode.Pixelated
+Image1.ZIndex = 6
+Image1.Parent = RightPad1
+
+CreditsButton.Activated:Connect(function()
+	if currentScene == CreditsScene then return end
+	currentScene = CreditsScene
+	CreditsButton.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
+	MainFrame.Visible = false
+
+	startTick = tick()
+	CreditsGroup.GroupTransparency = 1
+	CreditsFrame.Visible = true 
+
+	while true do
+		elapsed = tick() - startTick
+		t = math.clamp(elapsed / timescale, 0, 1)
+		CreditsGroup.GroupTransparency = 1 - t
+
+		if t >= 1 then break end
+		task.wait()
+	end
+
+	CreditsGroup.GroupTransparency = 0
 end)
